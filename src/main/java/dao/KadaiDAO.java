@@ -24,37 +24,40 @@ public class KadaiDAO extends KadaiConn implements Serializable{
 	public List<KadaiDataBean> getAllData() { 
 		List<KadaiDataBean> data = new ArrayList<KadaiDataBean>();
 		try {
-			String sql = "select * from sample";
+			String sql = "select * from gakusei_master";
 			Statement st = con.createStatement(); 
 			ResultSet rs = st.executeQuery(sql);
+			System.out.println(rs.toString());
 			while(rs.next()) {
-				int id = rs.getInt("id");
-				String name = rs.getString("name");
+				int student_number = rs.getInt("student_number");
+				String student_name = rs.getString("student_name");
 				//----ArrayListへデータを追加する
 				KadaiDataBean b = new KadaiDataBean();
-				b.setId(id);
-				b.setName(name);
+				b.setStudent_number(student_number);
+				b.setStudent_name(student_name);
 				data.add(b);
-				}   
-			} catch(Exception e) {
+			}   
+		} catch(Exception e) {
 				data = null;
-			}return data;
+				e.printStackTrace();
 		}
+		return data;
+	}
 	
 	public List<KadaiDataBean> getData(String keyword) { 
 		List<KadaiDataBean> data = new ArrayList<KadaiDataBean>();
 		try {
-			String sql = "select * from gakusei_master where name like ?";
+			String sql = "select * from gakusei_master where 学生氏名（漢字） like ?";
 			PreparedStatement st = con.prepareStatement(sql);
 			st.setString(1, "%" + keyword + "%");
 			ResultSet rs = st.executeQuery();
 			while(rs.next()) {
-				int id = rs.getInt("id");
-				String name = rs.getString("name");
+				int student_number = rs.getInt("student_number");
+				String student_name = rs.getString("student_name");
 				//----ArrayListへデータを追加する
 				KadaiDataBean b = new KadaiDataBean();
-				b.setId(id);
-				b.setName(name);
+				b.setStudent_number(student_number);
+				b.setStudent_name(student_name);
 				data.add(b);
 				}   
 			} catch(Exception e) {
@@ -63,5 +66,18 @@ public class KadaiDAO extends KadaiConn implements Serializable{
 			}
 		return data;
 		}
-
+	
+	public int insertData(int student_number, String student_name) {
+		int result = -1; // 返却値（変更したレコード数）にダミーの値をとりあえず入れておく
+		try {
+			String sql = "insert into sample(id, name) values(?, ?)";
+			PreparedStatement st = con.prepareStatement(sql);
+			st.setInt(1,student_number );
+			st.setString(2, student_name);
+			result = st.executeUpdate();	// 変更されたレコード数を受け取る
+		} catch(Exception e) {
+			e.printStackTrace();
+			result = 0; 		// 失敗した時は変更されたレコード数を0にする
+			}return result;		// 変更されたレコード数を返す
+			}
 	}

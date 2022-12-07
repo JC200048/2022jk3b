@@ -67,31 +67,27 @@ public class KadaiDAO extends KadaiConn implements Serializable{
 		return data;
 		}
 	
-	public int insertData(String student_number, String enrollment_status, String enrollment_confirmation_date,
-			String student_name, String student_furigana, String birthday, String student_post_code,
-			String student_address, String student_phone_number, String student_mail_address,
-			String parent_name, String parent_furigana, String parent_post_code,
-			String parent_address, String parent_phone_number, String parent_mail_address) {
+	public int insertData(KadaiDataBean bean) {
 		int result = -1; // 返却値（変更したレコード数）にダミーの値をとりあえず入れておく
 		try {
 			String sql = "insert into gakusei_master(id, name) values(?, ?)";
 			PreparedStatement st = con.prepareStatement(sql);
-			st.setString(1,student_number );
-			st.setString(2, enrollment_status);
-			st.setString(3, enrollment_confirmation_date);
-			st.setString(4, student_name);
-			st.setString(5, student_furigana);
-			st.setString(6, birthday);
-			st.setString(7, student_post_code);
-			st.setString(8, student_address);
-			st.setString(9, student_phone_number);
-			st.setString(10, student_mail_address);
-			st.setString(11, parent_name);
-			st.setString(12, parent_furigana);
-			st.setString(13, parent_post_code);
-			st.setString(14, parent_address);
-			st.setString(15, parent_phone_number);
-			st.setString(16, parent_mail_address);
+			st.setInt(1,bean.getStudent_number());
+			st.setString(2, bean.getEnrollment_status());
+			st.setString(3, bean.getEnrollment_confirmation_date());
+			st.setString(4, bean.getStudent_name());
+			st.setString(5, bean.getParent_furigana());
+			st.setString(6, bean.getBirthday());
+			st.setString(7, bean.getStudent_post_code());
+			st.setString(8, bean.getStudent_address());
+			st.setString(9, bean.getStudent_phone_number());
+			st.setString(10, bean.getStudent_mail_address());
+			st.setString(11, bean.getParent_name());
+			st.setString(12, bean.getParent_furigana());
+			st.setString(13, bean.getParent_post_code());
+			st.setString(14, bean.getStudent_address());
+			st.setString(15, bean.getParent_phone_number());
+			st.setString(16, bean.getParent_mail_address());
 			result = st.executeUpdate();	// 変更されたレコード数を受け取る
 		} catch(Exception e) {
 			e.printStackTrace();

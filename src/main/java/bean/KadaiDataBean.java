@@ -6,18 +6,18 @@ public class KadaiDataBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 		
 	private int student_number;
-	private int enrollment_status;
+	private String enrollment_status;
 	private String enrollment_confirmation_date;
 	private String student_name;
 	private String student_furigana;
 	private String birthday;
-	private int student_post_code;
+	private String student_post_code;
 	private String student_address;
 	private String student_phone_number;
 	private String student_mail_address;
 	private String parent_name;
 	private String parent_furigana;
-	private int parent_post_code;
+	private String parent_post_code;
 	private String parent_address;
 	private String parent_phone_number;
 	private String parent_mail_address;
@@ -28,11 +28,11 @@ public class KadaiDataBean implements Serializable {
 	public void setStudent_number(int student_number) {
 		this.student_number = student_number;
 	}
-	public int getEnrollment_status() {
+	public String getEnrollment_status() {
 		return enrollment_status;
 	}
-	public void setEnrollment_status(int enrollment_status) {
-		this.enrollment_status = enrollment_status;
+	public void setEnrollment_status(String strEnrollment_status) {
+		this.enrollment_status = strEnrollment_status;
 	}
 	public String getEnrollment_confirmation_date() {
 		return enrollment_confirmation_date;
@@ -58,11 +58,11 @@ public class KadaiDataBean implements Serializable {
 	public void setBirthday(String birthday) {
 		this.birthday = birthday;
 	}
-	public int getStudent_post_code() {
+	public String getStudent_post_code() {
 		return student_post_code;
 	}
-	public void setStudent_post_code(int student_post_code) {
-		this.student_post_code = student_post_code;
+	public void setStudent_post_code(String strStudent_post_code) {
+		this.student_post_code = strStudent_post_code;
 	}
 	public String getStudent_address() {
 		return student_address;
@@ -94,11 +94,11 @@ public class KadaiDataBean implements Serializable {
 	public void setParent_furigana(String parent_furigana) {
 		this.parent_furigana = parent_furigana;
 	}
-	public int getParent_post_code() {
+	public String getParent_post_code() {
 		return parent_post_code;
 	}
-	public void setParent_post_code(int parent_post_code) {
-		this.parent_post_code = parent_post_code;
+	public void setParent_post_code(String strParent_post_code) {
+		this.parent_post_code = strParent_post_code;
 	}
 	public String getParent_address() {
 		return parent_address;

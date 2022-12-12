@@ -70,29 +70,53 @@ public class KadaiDAO extends KadaiConn implements Serializable{
 	public int insertData(KadaiDataBean bean) {
 		int result = -1; // 返却値（変更したレコード数）にダミーの値をとりあえず入れておく
 		try {
-			String sql = "insert into gakusei_master(id, name) values(?, ?)";
+			String sql = "insert into gakusei_master(student_number, student_name) values(?, ?)";
 			PreparedStatement st = con.prepareStatement(sql);
 			st.setInt(1,bean.getStudent_number());
-			st.setString(2, bean.getEnrollment_status());
-			st.setString(3, bean.getEnrollment_confirmation_date());
-			st.setString(4, bean.getStudent_name());
-			st.setString(5, bean.getParent_furigana());
-			st.setString(6, bean.getBirthday());
-			st.setString(7, bean.getStudent_post_code());
-			st.setString(8, bean.getStudent_address());
-			st.setString(9, bean.getStudent_phone_number());
-			st.setString(10, bean.getStudent_mail_address());
-			st.setString(11, bean.getParent_name());
-			st.setString(12, bean.getParent_furigana());
-			st.setString(13, bean.getParent_post_code());
-			st.setString(14, bean.getStudent_address());
-			st.setString(15, bean.getParent_phone_number());
-			st.setString(16, bean.getParent_mail_address());
+			st.setString(2, bean.getStudent_name());
 			result = st.executeUpdate();	// 変更されたレコード数を受け取る
 		} catch(Exception e) {
 			e.printStackTrace();
 			result = 0; 		// 失敗した時は変更されたレコード数を0にする
 		}
 		return result;		// 変更されたレコード数を返す
+	}
+	
+	//-----1レコードを取得取得したレコードを返す（失敗はnull)
+	public KadaiDataBean getOneRec(String strStudent_number) {
+		KadaiDataBean data = new KadaiDataBean();	// 返却するデータ
+		try {
+			String sql = "select * from gakusei_master where id=?";
+			PreparedStatement st = con.prepareStatement(sql);
+			st.setInt(1, Integer.parseInt(strStudent_number));
+			ResultSet rs = st.executeQuery();
+			rs.next();		// 最初のレコードの取り出し
+			data.setStudent_number(rs.getInt("strStudent_number"));			//番号（id）のセット
+		} catch(Exception e) {
+				e.printStackTrace();	// しくじった時は念のためトレース表示
+				data = null;
+		}
+			return data;
+	}
+	
+	//----- 引数のidが存在すればtrue、存在しなければfalseを返す
+	public boolean isExists(String id) {
+		KadaiDataBean data = new KadaiDataBean();
+		boolean result = false;      // 結果を返却する変数(存在しない)
+		try {
+			String sql = " select count(*) from gakusei_master where id=?";
+			PreparedStatement st = con.prepareStatement(sql);
+			st.setInt(1, Integer.parseInt(id));
+			ResultSet rs = st.executeQuery();
+			rs.next();                   // 最初のレコードの位置へ移動
+			//--- 結果を取り出して判断する
+			if (rs.getInt(1) == 1) {
+				result = true;  // データが存在するのでtrueを返却
+			}
+		} catch (Exception e) {
+			e.printStackTrace(); 	// しくじった時は念のためトレース表示
+			result = true;  		// 何かのエラーがあったので登録できないようにtrue返す
+		}
+		return result;
 	}
 }

@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import bean.KadaiDataBean;
 import dao.KadaiDAO;
 
 @WebServlet("/insert")
@@ -23,9 +24,12 @@ public class KadaiInsert extends HttpServlet {
 		response.setContentType("text/html; charset=utf-8");
 		
 		String strStudent_number = request.getParameter("student_number");								// 学籍番号の取得
+		String strStudent_name= request.getParameter("student_name");									// 学生氏名（漢字）の取得
+
+		/*
 		String strEnrollment_status = request.getParameter("enrollment_status");						// 在籍状態の取得
 		String strEnrollment_confirmation_date = request.getParameter("enrollment_confirmation_date");	// 在籍状態確定日の取得
-		String strStudent_name= request.getParameter("student_name");									// 学生氏名（漢字）の取得
+		
 		String strStudent_furigana = request.getParameter("student_furigana");							// 学生ふりがなの取得
 		String strBirthday = request.getParameter("birthday");											// 生年月日の取得
 		String strStudent_post_code = request.getParameter("student_post_code");						// 本人郵便番号の取得
@@ -38,6 +42,7 @@ public class KadaiInsert extends HttpServlet {
 		String strParent_address = request.getParameter("parent_address");								// 保護者住所の取得
 		String strParent_phone_number = request.getParameter("parent_phone_number");					// 保護者電話番号の取得
 		String strParent_mail_address = request.getParameter("parent_mail_address");					// 保護者メールアドレスの取得
+		*/
 		
 		//---エラーチェック
 		boolean errSw = false;		// 送信されたデータに誤りがあればtrueにする
@@ -55,6 +60,13 @@ public class KadaiInsert extends HttpServlet {
 			}
 		}
 		
+		//---学生氏名（漢字）が空かどうか判断
+		if (strStudent_name == null || strStudent_name == "") {
+			response.getWriter().println("<p>学生氏名が入力されていません</p>");
+			errSw = true;
+		}
+		
+		/*
 		//---在籍状態が空かどうか判断
 		if (strEnrollment_status == null || strEnrollment_status == "") {
 			response.getWriter().println("<p>在籍状態が入力されていません</p>");
@@ -67,11 +79,7 @@ public class KadaiInsert extends HttpServlet {
 			errSw = true;
 		}
 		
-		//---学生氏名（漢字）が空かどうか判断
-		if (strStudent_name == null || strStudent_name == "") {
-			response.getWriter().println("<p>学生氏名が入力されていません</p>");
-			errSw = true;
-		}
+
 		
 		//---学生ふりがなが空かどうか判断
 		if (strStudent_furigana == null || strStudent_furigana == "") {
@@ -133,18 +141,21 @@ public class KadaiInsert extends HttpServlet {
 			errSw = true;
 		}
 		
+		*/
 		
 		//---エラーデータでなければ登録
 		if (!errSw) {
-			//---すでに登録済みのidかを調べる。
 			KadaiDAO dao = new KadaiDAO();
-			int result = dao.insertData(strStudent_number, strEnrollment_status, strEnrollment_confirmation_date, strStudent_name, strStudent_furigana, strBirthday, strStudent_post_code, strStudent_address, strStudent_phone_number, strStudent_mail_address, strParent_name, strParent_furigana, strParent_post_code, strParent_address, strParent_phone_number, strParent_mail_address);
+			int result = dao.insertData(strStudent_number, strStudent_name);
 			//---insertDataは追加したレコード数を返すので0かどうかで成功かを判断する
 			if (result == 0) {
 				response.getWriter().println("<p>登録できませんでした</p>");
 				} else {
 					response.getWriter().println("<p>登録完了しました</p>");
-				}
+					}
 			}
 		}
 	}
+		}
+	
+	

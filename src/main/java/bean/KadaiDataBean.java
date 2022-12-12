@@ -31,8 +31,8 @@ public class KadaiDataBean implements Serializable {
 	public String getEnrollment_status() {
 		return enrollment_status;
 	}
-	public void setEnrollment_status(String strEnrollment_status) {
-		this.enrollment_status = strEnrollment_status;
+	public void setEnrollment_status(String enrollment_status) {
+		this.enrollment_status = enrollment_status;
 	}
 	public String getEnrollment_confirmation_date() {
 		return enrollment_confirmation_date;
@@ -61,8 +61,8 @@ public class KadaiDataBean implements Serializable {
 	public String getStudent_post_code() {
 		return student_post_code;
 	}
-	public void setStudent_post_code(String strStudent_post_code) {
-		this.student_post_code = strStudent_post_code;
+	public void setStudent_post_code(String student_post_code) {
+		this.student_post_code = student_post_code;
 	}
 	public String getStudent_address() {
 		return student_address;
@@ -97,8 +97,8 @@ public class KadaiDataBean implements Serializable {
 	public String getParent_post_code() {
 		return parent_post_code;
 	}
-	public void setParent_post_code(String strParent_post_code) {
-		this.parent_post_code = strParent_post_code;
+	public void setParent_post_code(String parent_post_code) {
+		this.parent_post_code = parent_post_code;
 	}
 	public String getParent_address() {
 		return parent_address;

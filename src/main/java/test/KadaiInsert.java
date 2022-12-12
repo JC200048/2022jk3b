@@ -1,6 +1,8 @@
 package test;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -24,12 +26,9 @@ public class KadaiInsert extends HttpServlet {
 		response.setContentType("text/html; charset=utf-8");
 		
 		String strStudent_number = request.getParameter("student_number");								// 学籍番号の取得
-		String strStudent_name= request.getParameter("student_name");									// 学生氏名（漢字）の取得
-
-		/*
 		String strEnrollment_status = request.getParameter("enrollment_status");						// 在籍状態の取得
 		String strEnrollment_confirmation_date = request.getParameter("enrollment_confirmation_date");	// 在籍状態確定日の取得
-		
+		String strStudent_name = request.getParameter("student_name");									// 学生氏名（漢字）の取得
 		String strStudent_furigana = request.getParameter("student_furigana");							// 学生ふりがなの取得
 		String strBirthday = request.getParameter("birthday");											// 生年月日の取得
 		String strStudent_post_code = request.getParameter("student_post_code");						// 本人郵便番号の取得
@@ -42,31 +41,25 @@ public class KadaiInsert extends HttpServlet {
 		String strParent_address = request.getParameter("parent_address");								// 保護者住所の取得
 		String strParent_phone_number = request.getParameter("parent_phone_number");					// 保護者電話番号の取得
 		String strParent_mail_address = request.getParameter("parent_mail_address");					// 保護者メールアドレスの取得
-		*/
+		
+		List<String> message = new ArrayList<String>(); //---メッセージ格納用配列
 		
 		//---エラーチェック
 		boolean errSw = false;		// 送信されたデータに誤りがあればtrueにする
-		int id = -1; 				// ダミーの値をとりあえず入れておく
+		int student_number = -1; 				// ダミーの値をとりあえず入れておく
 		//---番号が空か、および値が数値かを判断
 		if (strStudent_number == null || strStudent_number == "") {
 			response.getWriter().println("<p>学籍番号が入力されていません</p>");
 			errSw = true;
 		} else {
 			try {
-				id = Integer.parseInt(strStudent_number);
+				student_number = Integer.parseInt(strStudent_number);
 			} catch(Exception e) {
 				response.getWriter().println("<p>学籍番号が数字ではありません</p>");
 				errSw = true;
 			}
 		}
-		
-		//---学生氏名（漢字）が空かどうか判断
-		if (strStudent_name == null || strStudent_name == "") {
-			response.getWriter().println("<p>学生氏名が入力されていません</p>");
-			errSw = true;
-		}
-		
-		/*
+
 		//---在籍状態が空かどうか判断
 		if (strEnrollment_status == null || strEnrollment_status == "") {
 			response.getWriter().println("<p>在籍状態が入力されていません</p>");
@@ -79,7 +72,11 @@ public class KadaiInsert extends HttpServlet {
 			errSw = true;
 		}
 		
-
+		//---学生氏名（漢字）が空かどうか判断
+		if (strStudent_name == null || strStudent_name == "") {
+			response.getWriter().println("<p>学生氏名が入力されていません</p>");
+			errSw = true;
+		}
 		
 		//---学生ふりがなが空かどうか判断
 		if (strStudent_furigana == null || strStudent_furigana == "") {
@@ -141,21 +138,46 @@ public class KadaiInsert extends HttpServlet {
 			errSw = true;
 		}
 		
-		*/
-		
 		//---エラーデータでなければ登録
 		if (!errSw) {
 			KadaiDAO dao = new KadaiDAO();
-			int result = dao.insertData(strStudent_number, strStudent_name);
-			//---insertDataは追加したレコード数を返すので0かどうかで成功かを判断する
-			if (result == 0) {
-				response.getWriter().println("<p>登録できませんでした</p>");
+			KadaiDataBean bean = dao.getOneRec(strStudent_number);
+			if (bean == null) {
+				bean = new KadaiDataBean();
+				bean.setStudent_number(student_number);
+				bean.setEnrollment_status(strEnrollment_status);
+				bean.setEnrollment_confirmation_date(strEnrollment_confirmation_date);
+				bean.setStudent_name(strStudent_name);
+				bean.setStudent_furigana(strStudent_furigana);
+				bean.setBirthday(strBirthday);
+				bean.setStudent_post_code(strStudent_post_code);
+				bean.setStudent_address(strStudent_address);
+				bean.setStudent_phone_number(strStudent_phone_number);
+				bean.setStudent_mail_address(strStudent_mail_address);
+				bean.setParent_name(strParent_name);
+				bean.setParent_furigana(strParent_furigana);
+				bean.setParent_post_code(strParent_post_code);
+				bean.setParent_address(strParent_address);
+				bean.setParent_phone_number(strParent_phone_number);
+				bean.setParent_mail_address(strParent_mail_address);
+				int result = dao.insertData(bean);
+				//---insertDataは追加したレコード数を返すので0かどうかで成功かを判断する
+				if (result == 0) {
+					message.add("登録できませんでした。");
 				} else {
-					response.getWriter().println("<p>登録完了しました</p>");
-					}
+					message.add("登録完了しました。");
+				}
+				
+			} else {
+				message.add("IDが重複しています。");
+				}
 			}
-		}
+		
+		//---メッセージ表示用のjspへ遷移
+		request.setAttribute("message", message);
+		request.getRequestDispatcher("kadaiInsert.jsp").forward(request, response);
 	}
-		}
+}
+
 	
 	

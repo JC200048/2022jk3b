@@ -110,6 +110,21 @@ public class KadaiDAO extends KadaiConn implements Serializable{
 			ResultSet rs = st.executeQuery();
 			rs.next();		// 最初のレコードの取り出し
 			data.setStudent_number(rs.getInt("student_number"));			//番号（id）のセット
+			data.setEnrollment_status(rs.getString("enrollment_status"));
+			data.setEnrollment_confirmation_date(rs.getString("enrollment_confirmation_date"));
+			data.setStudent_name(rs.getString("student_name"));
+			data.setStudent_furigana(rs.getString("student_furigana"));
+			data.setBirthday(rs.getString("birthday"));
+			data.setStudent_post_code(rs.getString("student_post_code"));
+			data.setStudent_address(rs.getString("student_address"));
+			data.setStudent_phone_number(rs.getString("student_phone_number"));
+			data.setStudent_mail_address(rs.getString("student_mail_address"));
+			data.setParent_name(rs.getString("parent_name"));
+			data.setParent_furigana(rs.getString("parent_furigana"));
+			data.setParent_post_code(rs.getString("parent_post_code"));
+			data.setParent_address(rs.getString("parent_address"));
+			data.setParent_phone_number(rs.getString("parent_phone_number"));
+			data.setParent_mail_address(rs.getString("parent_mail_address"));
 		} catch(Exception e) {
 				e.printStackTrace();	// しくじった時は念のためトレース表示
 				data = null;

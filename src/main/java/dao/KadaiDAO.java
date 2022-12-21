@@ -131,6 +131,11 @@ public class KadaiDAO extends KadaiConn implements Serializable{
 		int result = -1; // 返却値（変更したレコード数）にダミーの値をとりあえず入れておく
 		try {
 			String sql = "insert into gakusei_master(student_number, enrollment_status,enrollment_confirmation_date,student_name,student_furigana,birthday,student_post_code,student_address,student_phone_number,student_mail_address,parent_name,parent_furigana,parent_post_code,parent_address,parent_phone_number,parent_mail_address) values(?, ? ,? ,? ,? ,? ,? ,? ,? ,? ,? ,? ,? ,? ,? ,? )";
+			String sql = "insert into gakusei_master(student_number, enrollment_status, enrollment_confirmation_date, student_name, "
+					+ "student_furigana, birthday, student_post_code, student_address, "
+					+ "student_phone_number, student_mail_address, parent_name, parent_furigana, "
+					+ "parent_post_code, parent_address, parent_phone_number, parent_mail_address) "
+					+ "values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 			PreparedStatement st = con.prepareStatement(sql);
 			st.setInt(1,bean.getStudent_number());
 			st.setString(2, bean.getEnrollment_status());
@@ -160,12 +165,27 @@ public class KadaiDAO extends KadaiConn implements Serializable{
 	public KadaiDataBean getOneRec(String strStudent_number) {
 		KadaiDataBean data = new KadaiDataBean();	// 返却するデータ
 		try {
-			String sql = "select * from gakusei_master where id=?";
+			String sql = "select * from gakusei_master where student_number=?";
 			PreparedStatement st = con.prepareStatement(sql);
 			st.setInt(1, Integer.parseInt(strStudent_number));
 			ResultSet rs = st.executeQuery();
 			rs.next();		// 最初のレコードの取り出し
-			data.setStudent_number(rs.getInt("strStudent_number"));			//番号（id）のセット
+			data.setStudent_number(rs.getInt("student_number"));			//番号（id）のセット
+			data.setEnrollment_status(rs.getString("enrollment_status"));
+			data.setEnrollment_confirmation_date(rs.getString("enrollment_confirmation_date"));
+			data.setStudent_name(rs.getString("student_name"));
+			data.setStudent_furigana(rs.getString("student_furigana"));
+			data.setBirthday(rs.getString("birthday"));
+			data.setStudent_post_code(rs.getString("student_post_code"));
+			data.setStudent_address(rs.getString("student_address"));
+			data.setStudent_phone_number(rs.getString("student_phone_number"));
+			data.setStudent_mail_address(rs.getString("student_mail_address"));
+			data.setParent_name(rs.getString("parent_name"));
+			data.setParent_furigana(rs.getString("parent_furigana"));
+			data.setParent_post_code(rs.getString("parent_post_code"));
+			data.setParent_address(rs.getString("parent_address"));
+			data.setParent_phone_number(rs.getString("parent_phone_number"));
+			data.setParent_mail_address(rs.getString("parent_mail_address"));
 		} catch(Exception e) {
 				e.printStackTrace();	// しくじった時は念のためトレース表示
 				data = null;
@@ -174,13 +194,12 @@ public class KadaiDAO extends KadaiConn implements Serializable{
 	}
 	
 	//----- 引数のidが存在すればtrue、存在しなければfalseを返す
-	public boolean isExists(String id) {
-		KadaiDataBean data = new KadaiDataBean();
+	public boolean isExists(String student_number) {
 		boolean result = false;      // 結果を返却する変数(存在しない)
 		try {
-			String sql = " select count(*) from gakusei_master where id=?";
+			String sql = " select count(*) from gakusei_master where student_number=?";
 			PreparedStatement st = con.prepareStatement(sql);
-			st.setInt(1, Integer.parseInt(id));
+			st.setInt(1, Integer.parseInt(student_number));
 			ResultSet rs = st.executeQuery();
 			rs.next();                   // 最初のレコードの位置へ移動
 			//--- 結果を取り出して判断する

@@ -30,11 +30,39 @@ public class KadaiDAO extends KadaiConn implements Serializable{
 			System.out.println(rs.toString());
 			while(rs.next()) {
 				int student_number = rs.getInt("student_number");
+				String enrollment_status =  rs.getString("enrollment_status");
+				String enrollment_confirmation_date = rs.getString("enrollment_confirmation_date");
 				String student_name = rs.getString("student_name");
+				String student_furigana = rs.getString("student_furigana");
+				String birthday = rs.getString("birthday");
+				String student_post_code = rs.getString("student_post_code");
+				String student_address = rs.getString("student_address");
+				String student_phone_number = rs.getString("student_phone_number");
+				String student_mail_address = rs.getString("student_mail_address");
+				String parent_name = rs.getString("parent_name");
+				String parent_furigana = rs.getString("parent_furigana");
+				String parent_post_code = rs.getString("parent_post_code");
+				String parent_address = rs.getString("parent_address");
+				String parent_phone_number = rs.getString("parent_phone_number");
+				String parent_mail_address = rs.getString("parent_mail_address");
 				//----ArrayListへデータを追加する
 				KadaiDataBean b = new KadaiDataBean();
 				b.setStudent_number(student_number);
+				b.setEnrollment_status(enrollment_status);
+				b.setEnrollment_confirmation_date(enrollment_confirmation_date);
 				b.setStudent_name(student_name);
+				b.setStudent_furigana(student_furigana);
+				b.setBirthday(birthday);
+				b.setStudent_post_code(student_post_code);
+				b.setStudent_address(student_address);
+				b.setStudent_phone_number(student_phone_number);
+				b.setStudent_mail_address(student_mail_address);
+				b.setParent_name(parent_name);
+				b.setParent_furigana(parent_furigana);
+				b.setParent_post_code(parent_post_code);
+				b.setParent_address(parent_address);
+				b.setParent_phone_number(parent_phone_number);
+				b.setParent_mail_address(parent_mail_address);
 				data.add(b);
 			}   
 		} catch(Exception e) {
@@ -105,20 +133,21 @@ public class KadaiDAO extends KadaiConn implements Serializable{
 			String sql = "insert into gakusei_master(student_number, enrollment_status,enrollment_confirmation_date,student_name,student_furigana,birthday,student_post_code,student_address,student_phone_number,student_mail_address,parent_name,parent_furigana,parent_post_code,parent_address,parent_phone_number,parent_mail_address) values(?, ? ,? ,? ,? ,? ,? ,? ,? ,? ,? ,? ,? ,? ,? ,? )";
 			PreparedStatement st = con.prepareStatement(sql);
 			st.setInt(1,bean.getStudent_number());
-			st.setString(2, bean.getStudent_name());
-			st.setString(3, bean.getStudent_name());
+			st.setString(2, bean.getEnrollment_status());
+			st.setString(3, bean.getEnrollment_confirmation_date());
 			st.setString(4, bean.getStudent_name());
-			st.setString(5, bean.getStudent_name());
-			st.setString(6, bean.getStudent_name());
-			st.setString(7, bean.getStudent_name());
-			st.setString(8, bean.getStudent_name());
-			st.setString(9, bean.getStudent_name());
-			st.setString(10, bean.getStudent_name());
-			st.setString(11, bean.getStudent_name());
-			st.setString(12, bean.getStudent_name());
-			st.setString(13, bean.getStudent_name());
-			st.setString(14, bean.getStudent_name());
-			st.setString(15, bean.getStudent_name());
+			st.setString(5, bean.getStudent_furigana());
+			st.setString(6, bean.getBirthday());
+			st.setString(7, bean.getStudent_post_code());
+			st.setString(8, bean.getStudent_address());
+			st.setString(9, bean.getStudent_phone_number());
+			st.setString(10, bean.getStudent_mail_address());
+			st.setString(11, bean.getParent_name());
+			st.setString(12, bean.getParent_furigana());
+			st.setString(13, bean.getParent_post_code());
+			st.setString(14, bean.getParent_address());
+			st.setString(15, bean.getParent_phone_number());
+			st.setString(15, bean.getParent_mail_address());
 			result = st.executeUpdate();	// 変更されたレコード数を受け取る
 		} catch(Exception e) {
 			e.printStackTrace();

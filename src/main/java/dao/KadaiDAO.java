@@ -130,14 +130,15 @@ public class KadaiDAO extends KadaiConn implements Serializable{
 	public int insertData(KadaiDataBean bean) {
 		int result = -1; // 返却値（変更したレコード数）にダミーの値をとりあえず入れておく
 		try {
-			String sql = "insert into gakusei_master(student_number, enrollment_status,enrollment_confirmation_date,student_name,student_furigana,birthday,student_post_code,student_address,student_phone_number,student_mail_address,parent_name,parent_furigana,parent_post_code,parent_address,parent_phone_number,parent_mail_address) values(?, ? ,? ,? ,? ,? ,? ,? ,? ,? ,? ,? ,? ,? ,? ,? )";
+
 			String sql = "insert into gakusei_master(student_number, enrollment_status, enrollment_confirmation_date, student_name, "
 					+ "student_furigana, birthday, student_post_code, student_address, "
 					+ "student_phone_number, student_mail_address, parent_name, parent_furigana, "
 					+ "parent_post_code, parent_address, parent_phone_number, parent_mail_address) "
 					+ "values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 			PreparedStatement st = con.prepareStatement(sql);
-			st.setInt(1,bean.getStudent_number());
+			st.setInt(1, bean.getStudent_number());
+
 			st.setString(2, bean.getEnrollment_status());
 			st.setString(3, bean.getEnrollment_confirmation_date());
 			st.setString(4, bean.getStudent_name());
@@ -152,7 +153,9 @@ public class KadaiDAO extends KadaiConn implements Serializable{
 			st.setString(13, bean.getParent_post_code());
 			st.setString(14, bean.getParent_address());
 			st.setString(15, bean.getParent_phone_number());
-			st.setString(15, bean.getParent_mail_address());
+
+			st.setString(16, bean.getParent_mail_address());
+
 			result = st.executeUpdate();	// 変更されたレコード数を受け取る
 		} catch(Exception e) {
 			e.printStackTrace();

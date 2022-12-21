@@ -142,9 +142,13 @@ public class KadaiInsert extends HttpServlet {
 			errSw = true;
 		}
 		
-		//---保護者郵便番号が空かどうか判断
-		if (strParent_post_code == null || strParent_post_code == "") {
-			message.add("保護者郵便番号が入力されていません");
+		//---本人郵便番号が正規表現かどうか判断
+		String strPattern3 = "^[0-9]{7}$";					//正規表現文字列
+		Pattern p3 = Pattern.compile(strPattern3);			//正規表現オブジェクトの準備
+		Matcher m3 = p1.matcher(strStudent_post_code);		//正規表現をマッチさせる
+		if (m3.find()) {									//findメソッドがtrueなら一致する
+		} else { 
+			message.add("本人郵便番号が正しく入力されていません");
 			errSw = true;
 		}
 		
@@ -154,9 +158,13 @@ public class KadaiInsert extends HttpServlet {
 			errSw = true;
 		}
 		
-		//---保護者電話番号が空かどうか判断
-		if (strParent_phone_number == null || strParent_phone_number == "") {
-			message.add("保護者電話番号が入力されていません");
+		//---保護者電話番号が正規表現かどうか判断
+		String strPattern4 = "^0[-0-9]{11,12}";				//正規表現文字列
+		Pattern p4 = Pattern.compile(strPattern4);			//正規表現オブジェクトの準備
+		Matcher m4 = p4.matcher(strStudent_phone_number);	//正規表現をマッチさせる
+		if (m4.find()) {									//findメソッドがtrueなら一致する
+		} else { 
+			message.add("保護者電話番号が正しく入力されていません");
 			errSw = true;
 		}
 		

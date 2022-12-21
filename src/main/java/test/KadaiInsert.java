@@ -3,6 +3,8 @@ package test;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -49,92 +51,112 @@ public class KadaiInsert extends HttpServlet {
 		int student_number = -1; 				// ダミーの値をとりあえず入れておく
 		//---番号が空か、および値が数値かを判断
 		if (strStudent_number == null || strStudent_number == "") {
-			response.getWriter().println("<p>学籍番号が入力されていません</p>");
+			message.add("学籍番号が入力されていません");
 			errSw = true;
 		} else {
 			try {
 				student_number = Integer.parseInt(strStudent_number);
 			} catch(Exception e) {
-				response.getWriter().println("<p>学籍番号が数字ではありません</p>");
+				message.add("学籍番号が数字ではありません");
 				errSw = true;
 			}
 		}
 
 		//---在籍状態が空かどうか判断
 		if (strEnrollment_status == null || strEnrollment_status == "") {
-			response.getWriter().println("<p>在籍状態が入力されていません</p>");
+			message.add("在籍状態が入力されていません");
 			errSw = true;
 		}
 		
 		//---在籍状態確定日が空かどうか判断
 		if (strEnrollment_confirmation_date == null || strEnrollment_confirmation_date == "") {
-			response.getWriter().println("<p>在籍状態確定日が入力されていません</p>");
+			message.add("在籍状態確定日が入力されていません");
 			errSw = true;
 		}
 		
 		//---学生氏名（漢字）が空かどうか判断
 		if (strStudent_name == null || strStudent_name == "") {
-			response.getWriter().println("<p>学生氏名が入力されていません</p>");
+			message.add("学生氏名が入力されていません");
 			errSw = true;
 		}
 		
 		//---学生ふりがなが空かどうか判断
 		if (strStudent_furigana == null || strStudent_furigana == "") {
-			response.getWriter().println("<p>学生ふりがなが入力されていません</p>");
+			message.add("学生ふりがなが入力されていません");
 			errSw = true;
 		}
 		
 		//--- 生年月日が空かどうか判断
 		if (strBirthday == null || strBirthday == "") {
-			response.getWriter().println("<p>生年月日が入力されていません</p>");
+			message.add("生年月日が入力されていません");
 			errSw = true;
 		}
 		
 		//---本人郵便番号が空かどうか判断
 		if (strStudent_post_code == null || strStudent_post_code == "") {
-			response.getWriter().println("<p>本人郵便番号が入力されていません</p>");
+			message.add("本人郵便番号が入力されていません");
+			errSw = true;
+		}
+		
+		//---本人郵便番号が正規表現かどうか判断
+		String strPattern1 = "^[0-9]{7}$";				//正規表現文字列
+		Pattern p1 = Pattern.compile(strPattern1);			//正規表現オブジェクトの準備
+		Matcher m1 = p1.matcher(strStudent_post_code);		//正規表現をマッチさせる
+		if (m1.find()) {										//findメソッドがtrueなら一致する
+		} else { 
+			message.add("本人郵便番号が正しく入力されていません");
 			errSw = true;
 		}
 		
 		//---本人住所が空かどうか判断
 		if (strStudent_address == null || strStudent_address == "") {
-			response.getWriter().println("<p>本人住所が入力されていません</p>");
+			message.add("本人住所が入力されていません");
 			errSw = true;
 		}
 		
 		//---本人電話番号が空かどうか判断
 		if (strStudent_phone_number == null || strStudent_phone_number == "") {
-			response.getWriter().println("<p>本人電話番号が入力されていません</p>");
+			message.add("本人電話番号が入力されていません");
+			errSw = true;
+		}
+		
+		//---本人電話番号が正規表現かどうか判断
+		String strPattern2 = "^0[-0-9]{11,12}";				//正規表現文字列
+		Pattern p2 = Pattern.compile(strPattern2);			//正規表現オブジェクトの準備
+		Matcher m2 = p2.matcher(strStudent_phone_number);		//正規表現をマッチさせる
+		if (m2.find()) {										//findメソッドがtrueなら一致する
+		} else { 
+			message.add("本人電話番号が正しく入力されていません");
 			errSw = true;
 		}
 		
 		//---保護者氏名（漢字）が空かどうか判断
 		if (strParent_name == null || strParent_name == "") {
-			response.getWriter().println("<p>保護者氏名（漢字）が入力されていません</p>");
+			message.add("保護者氏名（漢字）が入力されていません");
 			errSw = true;
 		}
 		
 		//---保護者ふりがなが空かどうか判断
 		if (strParent_furigana == null || strParent_furigana == "") {
-			response.getWriter().println("<p>保護者ふりがなが入力されていません</p>");
+			message.add("保護者ふりがなが入力されていません");
 			errSw = true;
 		}
 		
 		//---保護者郵便番号が空かどうか判断
 		if (strParent_post_code == null || strParent_post_code == "") {
-			response.getWriter().println("<p>保護者郵便番号が入力されていません</p>");
+			message.add("保護者郵便番号が入力されていません");
 			errSw = true;
 		}
 		
 		//---保護者住所が空かどうか判断
 		if (strParent_address == null || strStudent_address == "") {
-			response.getWriter().println("<p>保護者住所が入力されていません</p>");
+			message.add("保護者住所が入力されていません");
 			errSw = true;
 		}
 		
 		//---保護者電話番号が空かどうか判断
 		if (strParent_phone_number == null || strParent_phone_number == "") {
-			response.getWriter().println("<p>保護者電話番号が入力されていません</p>");
+			message.add("保護者電話番号が入力されていません");
 			errSw = true;
 		}
 		

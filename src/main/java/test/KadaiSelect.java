@@ -25,6 +25,9 @@ public class KadaiSelect extends HttpServlet {
 			if (proc.equals("insert")) {
 				response.sendRedirect("kadaiInsert.html");
 				return;
+			} else if (proc.equals("update")) {
+				request.getRequestDispatcher("update").forward(request, response);
+				return;
 			}
 		}
 		response.sendRedirect("displayall");

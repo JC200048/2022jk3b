@@ -66,6 +66,7 @@
 			</table>
 			<div class="buttonarea">
 				<button type="submit" name="submit" value="insert">新規登録</button>
+				<button type="submit" name="submit" value="update">編集</button>
 			</div>
 		</form>
 	</main>

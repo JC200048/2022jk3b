@@ -151,4 +151,19 @@ public class KadaiDAO extends KadaiConn implements Serializable{
 		}
 		return result;
 	}
-}
+	
+	public int updateData(KadaiDataBean bean) {
+		int result = -1;
+		try {
+			String sql = "update sample set name=? where id=?";// SQL文
+			PreparedStatement st = con.prepareStatement(sql);// プリペアドステートメント
+			st.setString(1,  bean.getName());// 氏名の登録
+			st.setInt(2,  bean.getId());// IDの登録
+			result = st.executeUpdate();//更新の実行
+		}catch(Exception e) {
+			e.printStackTrace();// エラーなので、とりあえずスタックトレースを表示する
+			result = 0;
+		}
+		return result;
+		}
+	}

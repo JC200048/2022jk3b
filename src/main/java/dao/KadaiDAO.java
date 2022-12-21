@@ -17,7 +17,7 @@ public class KadaiDAO extends KadaiConn implements Serializable{
 	Connection con;
 	
 	public KadaiDAO() {
-		con = conn();   //---スーパークラスのデータベース接続部分を呼び出す。conn という変数を利用して参照できる。
+		con = conn();   //-ー--スーパークラスのデータベース接続部分を呼び出す。conn という変数を利用して参照できる。
 	}
 	
 	//ｰｰｰｰsampleテーブルから取り出したデータをArrayListに格納する。

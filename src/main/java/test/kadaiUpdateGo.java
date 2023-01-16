@@ -10,14 +10,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import bean.SampleDataBean;
-import dao.SampleDAO;
+import bean.KadaiDataBean;
+import dao.KadaiDAO;
 
 @WebServlet("/updatego")
-public class SampleUpdateGo extends HttpServlet {
+public class kadaiUpdateGo extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-    public SampleUpdateGo() {
+    public  kadaiUpdateGo() {
         super();
     }
 
@@ -33,12 +33,12 @@ public class SampleUpdateGo extends HttpServlet {
 		//---エラーメッセージを格納する配列
 		List<String> list = new ArrayList();
 		//---フォームデータの取得
-		SampleDataBean bean = new SampleDataBean();
+		KadaiDataBean bean = new KadaiDataBean();
 		String strId = request.getParameter("id");
 		String strSimei = request.getParameter("simei");
 		//---IDの設定（エラーチェックもする）
 		try {
-			bean.setId(Integer.parseInt(strId));
+			bean.setStudent_number(Integer.parseInt(strId));
 		} catch(Exception e) {
 			list.add("IDが数値でありません。");
 		}
@@ -46,11 +46,11 @@ public class SampleUpdateGo extends HttpServlet {
 		if (strSimei.isEmpty()) {
 			list.add("氏名の値が未設定になっています");
 		} else {
-			bean.setName(strSimei);
+			bean.setStudent_name(strSimei);
 		}
 		//---DAOのupdateataを呼び出す。
 		if (list.size()== 0) {
-			SampleDAO dao = new SampleDAO();
+			KadaiDAO dao = new KadaiDAO();
 			int result = dao.updateData(bean);
 			if (result == 1) {
 				list.add("修正完了しました。");
@@ -60,7 +60,7 @@ public class SampleUpdateGo extends HttpServlet {
 		}
 		//---結果表示のｊjspへ遷移
 		request.setAttribute("message", list);
-		request.getRequestDispatcher("sampleUpdateGo.jsp").forward(request, response);
+		request.getRequestDispatcher("kadaiUpdateGo.jsp").forward(request, response);
 	}
 
 }

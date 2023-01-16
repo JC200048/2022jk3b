@@ -46,7 +46,7 @@ public class KadaiInsert extends HttpServlet {
 		
 		List<String> message = new ArrayList<String>(); //---メッセージ格納用配列
 		
-		//---エラーチェック
+		//---エラーチェック　
 		boolean errSw = false;		// 送信されたデータに誤りがあればtrueにする
 		int student_number = -1; 				// ダミーの値をとりあえず入れておく
 		//---番号が空か、および値が数値かを判断

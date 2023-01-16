@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import bean.KadaiDataBean;
 import dao.KadaiDAO;
 
+
 @WebServlet("/updatego")
 public class kadaiUpdateGo extends HttpServlet {
 	private static final long serialVersionUID = 1L;

@@ -14,6 +14,7 @@
 		response.sendRedirect("displayall");
 		return;
 	}
+	
 	%>
 	<h1>データの修正</h1>
 	<form method="get" action="updatego">

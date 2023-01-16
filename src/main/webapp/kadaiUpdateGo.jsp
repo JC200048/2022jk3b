@@ -26,6 +26,7 @@ a {
 	cursor: arrow;
 }
 
+
 .buttonImage:hover {
 	background-color: #dddddd;
 }

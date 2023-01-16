@@ -62,7 +62,7 @@ public class KadaiInsert extends HttpServlet {
 			}
 		}
 
-		//---在籍状態が空かどうか判断
+		//---在籍状態が空かどうか判断  
 		if (strEnrollment_status == null || strEnrollment_status == "") {
 			message.add("在籍状態が入力されていません");
 			errSw = true;

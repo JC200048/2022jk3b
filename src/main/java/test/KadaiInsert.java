@@ -114,7 +114,7 @@ public class KadaiInsert extends HttpServlet {
 			errSw = true;
 		}
 		
-		//---本人電話番号が空かどうか判断
+		//---本人電話番号が空かどうか判断　
 		if (strStudent_phone_number == null || strStudent_phone_number == "") {
 			message.add("本人電話番号が入力されていません");
 			errSw = true;

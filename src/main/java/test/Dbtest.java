@@ -26,7 +26,7 @@ public class Dbtest extends HttpServlet {
 		try {
 			List<KadaiDataBean> b = new ArrayList<KadaiDataBean>();
 			KadaiDAO sb = new KadaiDAO();
-			b = sb.getAllData();
+			b = sb.getAllData(null);
 			for(KadaiDataBean x : b) {
 				response.getWriter().print(x.getStudent_number() + "," + x.getStudent_name() + "<br>");
 			}   

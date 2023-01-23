@@ -24,14 +24,22 @@ public class KadaiDisplayAll extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
+		
+		//---キーワードを取得する
+		String keyword = (String) request.getParameter("keyword");
+		if (keyword == null) {
+			keyword = "";
+		}
 
-		request.setCharacterEncoding("utf-8");// SampleDAOのgetAllDataメソッドを呼び出して全データを取り出し、listへ格納
+		// SampleDAOのgetAllDataメソッドを呼び出して全データを取り出し、listへ格納
 		List<KadaiDataBean> list = new ArrayList<KadaiDataBean>();
 		KadaiDAO dao = new KadaiDAO();
-		list = dao.getAllData();
+		list = dao.getAllData(keyword);
 		
 		// listをjspへ送るための設定
 		request.setAttribute("data", list);
+		// キーワードを送る
+		request.setAttribute("keyword", keyword);
 		// jspへ遷移
 		request.getRequestDispatcher("kadaiDisplay.jsp").forward(request, response);
 		}

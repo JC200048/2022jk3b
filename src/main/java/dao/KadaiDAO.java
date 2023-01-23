@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,12 +21,18 @@ public class KadaiDAO extends KadaiConn implements Serializable{
 	
 	
 	//ｰｰｰｰsampleテーブルから取り出したデータをArrayListに格納する。
-	public List<KadaiDataBean> getAllData() { 
+	public List<KadaiDataBean> getAllData(String keyword) { 
 		List<KadaiDataBean> data = new ArrayList<KadaiDataBean>();
 		try {
-			String sql = "select * from gakusei_master";
-			Statement st = con.createStatement();
-			ResultSet rs = st.executeQuery(sql);
+			if (keyword == null || keyword == "") {
+				keyword = "";
+			}
+			
+			String sql = "select * from gakusei_master where student_name like ? or student_furigana like ?";
+			PreparedStatement st = con.prepareStatement(sql);
+			st.setString(1, "%" + keyword + "%");
+			st.setString(2, "%" + keyword + "%");
+			ResultSet rs = st.executeQuery();
 			System.out.println(rs.toString());
 			while(rs.next()) {
 				int student_number = rs.getInt("student_number");

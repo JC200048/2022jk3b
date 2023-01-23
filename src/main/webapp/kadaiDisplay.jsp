@@ -31,6 +31,9 @@
 	</header>
 	<main>
 		<form class="formarea" method="get" action="select">
+			キーワード
+			<input type="text" name="keyword">
+			<button type="submit" name="submit" value="search">検索</button>
 			<table>
 				<tr>
 				<th>選択</th>
@@ -39,11 +42,13 @@
 				<th>学生ふりがな</th>
 			
 				</tr>
-				<%  //-----受け取ったデータをテーブルに表示する
+				<%
+				//-----受け取ったデータをテーブルに表示する
+				int cnt = 0;
 				List<KadaiDataBean> data = (ArrayList) request.getAttribute("data");
-				int cnt = 0;	
-				for (KadaiDataBean bean : data) {
-					cnt++;
+				if (data != null) {
+				    for (KadaiDataBean bean : data) {
+					cnt++;;
 				%>
 				<tr>
 					<td><input type="radio" name="student_number" value="<%=cnt%>"id="radio<%=cnt%>"></td>
@@ -52,10 +57,19 @@
 					<td><label for="radio<%=cnt %>"><%=bean.getStudent_furigana()%></label></td>
 					
 				</tr>
-				<%  //-----繰り返しを閉じるところ
+				<%		//-----繰り返しを閉じるところ
 					}
+				}		//------ if を閉じるところ
 				%>
 			</table>
+			<%
+			//---キーワードを取得
+			String keyword = (String) request.getAttribute("keyword");
+			if (keyword == null) {
+				keyword = "";
+			}
+			%>
+
 			<div class="buttonarea">
 				<button type="submit" name="submit" value="insert">新規登録</button>
 				<button type="submit" name="submit" value="update">編集</button>

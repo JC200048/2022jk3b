@@ -18,13 +18,20 @@
 	%>
 	<h1>データの修正</h1>
 	<form method="get" action="updatego">
-		<p>学籍番号：<%=bean.getStudent_number()%></p>
-		<p>学生氏名(漢字)：<input type="text" name="simei" value="<%=bean.getStudent_name()%>"></p>
-		<p>学生ふりがな：<input type="text" name="simei" value="<%=bean.getStudent_furigana()%>"></p>
-		<input type="hidden" name="id" value="<%=bean.getStudent_number()%>">
+		<p>学籍番号：<%=bean.getStudent_number()%></p>  
+		<p>学生氏名(漢字)：<input type="text" name="student_name" value="<%=bean.getStudent_name()%>"></p>
+		<p>学生ふりがな：<input type="text" name="student_furigana" value="<%=bean.getStudent_furigana()%>"></p>
+		<input type="hidden" name="student_number" value="<%=bean.getStudent_number()%>">
+
+		<!-- 
+		<p>学生氏名(漢字)：<input type="text" name="simei" value=""></p>
+		<p>学生ふりがな：<input type="text" name="simei" value=""></p>
+		<input type="hidden" name="id" value="">
+		-->
 		<button type="submit" name="submit" value="1">変更</button>
 		<button type="submit" name="submit" value="2">キャンセル</button>
-		<button type="reset">リセット</button>
+		<button type="reset">リセット</button> 
+		
 	</form>
 </body>
 </html>

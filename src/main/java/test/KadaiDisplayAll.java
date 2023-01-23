@@ -24,7 +24,7 @@ public class KadaiDisplayAll extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
-		
+
 		request.setCharacterEncoding("utf-8");// SampleDAOのgetAllDataメソッドを呼び出して全データを取り出し、listへ格納
 		List<KadaiDataBean> list = new ArrayList<KadaiDataBean>();
 		KadaiDAO dao = new KadaiDAO();

@@ -26,7 +26,7 @@ public class KadaiDAO extends KadaiConn implements Serializable{
 		List<KadaiDataBean> data = new ArrayList<KadaiDataBean>();
 		try {
 			String sql = "select * from gakusei_master";
-			Statement st = con.createStatement(); 
+			Statement st = con.createStatement();
 			ResultSet rs = st.executeQuery(sql);
 			System.out.println(rs.toString());
 			while(rs.next()) {
@@ -218,31 +218,28 @@ public class KadaiDAO extends KadaiConn implements Serializable{
 	public int updateData(KadaiDataBean bean) {
 		int result = -1;
 		try {
-			String sql = "update gakusei_master set enrollment_status=?, enrollment_confirmation_date=?,"
-					+ "student_name =?, student_furigana =?,"
-					+ "birthday =?, student_post_code =?,"
-					+ "student_address =?, student_phone_number=?,"
-					+ "student_mail_address =?, parent_name =?,"
-					+ "parent_furigana =?, parent_post_code =?,"
-					+ "parent_address =?, parent_phone_number =?,"
-					+ "parent_mail_address =? where student_number=?";// SQL文
+			String sql = "update gakusei_master set student_name =?, student_furigana =? where student_number=?";// SQL文
 			PreparedStatement st = con.prepareStatement(sql);// プリペアドステートメント
-			st.setInt(1, bean.getStudent_number());
-			st.setString(2, bean.getEnrollment_status());
-			st.setString(3, bean.getEnrollment_confirmation_date());
-			st.setString(4, bean.getStudent_name());
-			st.setString(5, bean.getStudent_furigana());
-			st.setString(6, bean.getBirthday());
-			st.setString(7, bean.getStudent_post_code());
-			st.setString(8, bean.getStudent_address());
-			st.setString(9, bean.getStudent_phone_number());
-			st.setString(10, bean.getStudent_mail_address());
-			st.setString(11, bean.getParent_name());
-			st.setString(12, bean.getParent_furigana());
-			st.setString(13, bean.getParent_post_code());
-			st.setString(14, bean.getParent_address());
-			st.setString(15, bean.getParent_phone_number());
-			st.setString(16, bean.getParent_mail_address());
+			
+			st.setString(1, bean.getStudent_name());
+			st.setString(2, bean.getStudent_furigana());
+			st.setInt(3, bean.getStudent_number());
+			
+			//st.setString(2, bean.getEnrollment_status());
+			//st.setString(3, bean.getEnrollment_confirmation_date());
+			
+			
+			//st.setString(6, bean.getBirthday());
+			//st.setString(7, bean.getStudent_post_code());
+			//st.setString(8, bean.getStudent_address());
+			//st.setString(9, bean.getStudent_phone_number());
+			//st.setString(10, bean.getStudent_mail_address());
+			//st.setString(11, bean.getParent_name());
+			//st.setString(12, bean.getParent_furigana());
+			//st.setString(13, bean.getParent_post_code());
+			//st.setString(14, bean.getParent_address());
+			//st.setString(15, bean.getParent_phone_number());
+			//st.setString(16, bean.getParent_mail_address());
 			result = st.executeUpdate();	//更新の実行
 		}catch(Exception e) {
 			e.printStackTrace();// エラーなので、とりあえずスタックトレースを表示する

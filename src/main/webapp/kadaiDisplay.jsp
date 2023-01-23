@@ -41,18 +41,19 @@
 				</tr>
 				<%  //-----受け取ったデータをテーブルに表示する
 				List<KadaiDataBean> data = (ArrayList) request.getAttribute("data");
-				int cnt = 0;
+				int cnt = 0;	
 				for (KadaiDataBean bean : data) {
-					cnt++;%>
+					cnt++;
+				%>
 				<tr>
-					<td><input type="radio" name="id" value="<%=cnt%>"id="radio<%=cnt%>"></td>
+					<td><input type="radio" name="student_number" value="<%=cnt%>"id="radio<%=cnt%>"></td>
 					<td><label for="radio<%=cnt %>"><%=bean.getStudent_number()%></label></td>
 					<td><label for="radio<%=cnt %>"><%=bean.getStudent_name()%></label></td>
 					<td><label for="radio<%=cnt %>"><%=bean.getStudent_furigana()%></label></td>
 					
 				</tr>
 				<%  //-----繰り返しを閉じるところ
-				}
+					}
 				%>
 			</table>
 			<div class="buttonarea">

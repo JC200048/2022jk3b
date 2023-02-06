@@ -7,10 +7,13 @@
 	<meta charset="UTF-8">
 	<title>データの追加</title>
 	<style type="text/css">
+		html, body {
+			height: 100%;
+		}
 		body {
 			height: 100%;
 			text-align: center;
-			background: linear-gradient(to top, rgba(217, 175, 217, 0.7) 0%, rgba(151, 217, 225, 0.7) 100%),url(inu.png);
+			background: #EAFDFC;
 			background-repeat: repeat;
 			position: fixed;
     		top: 0px;

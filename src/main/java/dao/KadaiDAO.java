@@ -167,7 +167,7 @@ public class KadaiDAO extends KadaiConn implements Serializable{
 		return result;		// 変更されたレコード数を返す
 	}
 	
-	//-----1レコードを取得取得したレコードを返す（失敗はnull)
+	//-----1レコードを取得したレコードを返す（失敗はnull)
 	public KadaiDataBean getOneRec(String strStudent_number) {
 		KadaiDataBean data = new KadaiDataBean();	// 返却するデータ
 		try {

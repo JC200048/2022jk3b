@@ -3,8 +3,21 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+	<meta charset="UTF-8">
+	<title>データの修正</title>
+	<style type="text/css">
+		html, body {
+			height: 100%;
+		}
+		body {
+			background-color: #EAFDFC;
+			height: 100%;
+			text-align: center;
+    		top: 0px;
+    		left:500px;
+    		right: 500px;
+		}
+	</style>
 </head>
 <body>
 	<%

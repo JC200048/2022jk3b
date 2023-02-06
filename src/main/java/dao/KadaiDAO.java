@@ -20,7 +20,7 @@ public class KadaiDAO extends KadaiConn implements Serializable{
 	}
 	
 	
-	//ｰｰｰｰsampleテーブルから取り出したデータをArrayListに格納する。
+	//ｰｰｰｰgakusei_masterテーブルから取り出したデータをArrayListに格納する。
 	public List<KadaiDataBean> getAllData(String keyword) { 
 		List<KadaiDataBean> data = new ArrayList<KadaiDataBean>();
 		try {
@@ -28,10 +28,11 @@ public class KadaiDAO extends KadaiConn implements Serializable{
 				keyword = "";
 			}
 			
-			String sql = "select * from gakusei_master where student_name like ? or student_furigana like ?";
+			String sql = "select * from gakusei_master where student_name like ? or student_furigana like ? or student_number like ?";
 			PreparedStatement st = con.prepareStatement(sql);
 			st.setString(1, "%" + keyword + "%");
 			st.setString(2, "%" + keyword + "%");
+			st.setString(3, "%" + keyword + "%");
 			ResultSet rs = st.executeQuery();
 			System.out.println(rs.toString());
 			while(rs.next()) {
@@ -81,7 +82,7 @@ public class KadaiDAO extends KadaiConn implements Serializable{
 	public List<KadaiDataBean> getData(String keyword) { 
 		List<KadaiDataBean> data = new ArrayList<KadaiDataBean>();
 		try {
-			String sql = "select * from gakusei_master where 学生氏名（漢字） like ?";
+			String sql = "select * from gakusei_master where like student_name?";
 			PreparedStatement st = con.prepareStatement(sql);
 			st.setString(1, "%" + keyword + "%");
 			ResultSet rs = st.executeQuery();
@@ -102,7 +103,6 @@ public class KadaiDAO extends KadaiConn implements Serializable{
 				String parent_address = rs.getString("parent_address");
 				String parent_phone_number = rs.getString("parent_phone_number");
 				String parent_mail_address = rs.getString("parent_mail_address");
-				
 	
 				//----ArrayListへデータを追加する
 				KadaiDataBean b = new KadaiDataBean();
@@ -122,7 +122,6 @@ public class KadaiDAO extends KadaiConn implements Serializable{
 				b.setParent_address(parent_address);
 				b.setParent_phone_number(parent_phone_number);
 				b.setParent_mail_address(parent_mail_address);
-				
 				
 				data.add(b);
 				}   
@@ -251,5 +250,62 @@ public class KadaiDAO extends KadaiConn implements Serializable{
 			result = 0;
 		}
 		return result;
-		}
 	}
+	
+	//ｰｰｰｰgakusei_masterテーブルから取り出したデータをArrayListに格納する。
+	public List<KadaiDataBean> getZaisekiData(String zaiseki) { 
+		List<KadaiDataBean> data2 = new ArrayList<KadaiDataBean>();
+		try {
+			if (zaiseki == null || zaiseki == "") {
+				zaiseki = "";
+			}
+			
+			String sql = "select * from gakusei_master where enrollment_status like  ?";
+			PreparedStatement st = con.prepareStatement(sql);
+			st.setString(1, "%" + zaiseki + "%");
+			ResultSet rs = st.executeQuery();
+			System.out.println(rs.toString());
+			while(rs.next()) {
+				int student_number = rs.getInt("student_number");
+				String enrollment_status =  rs.getString("enrollment_status");
+				String enrollment_confirmation_date = rs.getString("enrollment_confirmation_date");
+				String student_name = rs.getString("student_name");
+				String student_furigana = rs.getString("student_furigana");
+				String birthday = rs.getString("birthday");
+				String student_post_code = rs.getString("student_post_code");
+				String student_address = rs.getString("student_address");
+				String student_phone_number = rs.getString("student_phone_number");
+				String student_mail_address = rs.getString("student_mail_address");
+				String parent_name = rs.getString("parent_name");
+				String parent_furigana = rs.getString("parent_furigana");
+				String parent_post_code = rs.getString("parent_post_code");
+				String parent_address = rs.getString("parent_address");
+				String parent_phone_number = rs.getString("parent_phone_number");
+				String parent_mail_address = rs.getString("parent_mail_address");
+				//----ArrayListへデータを追加する
+				KadaiDataBean a = new KadaiDataBean();
+				a.setStudent_number(student_number);
+				a.setEnrollment_status(enrollment_status);
+				a.setEnrollment_confirmation_date(enrollment_confirmation_date);
+				a.setStudent_name(student_name);
+				a.setStudent_furigana(student_furigana);
+				a.setBirthday(birthday);
+				a.setStudent_post_code(student_post_code);
+				a.setStudent_address(student_address);
+				a.setStudent_phone_number(student_phone_number);
+				a.setStudent_mail_address(student_mail_address);
+				a.setParent_name(parent_name);
+				a.setParent_furigana(parent_furigana);
+				a.setParent_post_code(parent_post_code);
+				a.setParent_address(parent_address);
+				a.setParent_phone_number(parent_phone_number);
+				a.setParent_mail_address(parent_mail_address);
+				data2.add(a);
+			}   
+		} catch(Exception e) {
+				data2 = null;
+				e.printStackTrace();
+		}
+		return data2;
+	}
+}

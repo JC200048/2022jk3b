@@ -8,6 +8,9 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
+body {
+	background-color: #CFF5E7;
+}
 a {
 	text-decoration: none;
 }

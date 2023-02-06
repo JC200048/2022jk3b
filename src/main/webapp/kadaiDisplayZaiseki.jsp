@@ -11,9 +11,6 @@
 		html, body {
 			height: 100%;
 		}
-		main {
-			min-height: 100vh;
-		}
 		body {
 			height: 100%;
 			text-align: center;
@@ -38,7 +35,7 @@
 			padding: 30px;
 		}
 		.formarea {
-		text-align: center;
+		margin-left: 30px;
 		}
 		.buttonarea {
 			margin-top: 20px;
@@ -47,13 +44,10 @@
 </head>
 <body>
 	<header>
-		<h1>データの編集</h1>
+		<h1>在籍状態による絞り込み</h1>
 	</header>
 	<main>
 		<form class="formarea" method="get" action="select">
-			キーワード
-			<input type="text" name="keyword">
-			<button type="submit" name="submit" value="search">検索</button><br>
 			在籍状態
 			<input type="radio" name="zaiseki" value="0">0
 			<input type="radio" name="zaiseki" value="1">1
@@ -70,9 +64,9 @@
 				<%
 				//-----受け取ったデータをテーブルに表示する
 				int cnt = 0;
-				List<KadaiDataBean> data = (ArrayList) request.getAttribute("data");
-				if (data != null) {
-				    for (KadaiDataBean bean : data) {
+				List<KadaiDataBean> data2 = (ArrayList) request.getAttribute("data2");
+				if (data2 != null) {
+				    for (KadaiDataBean bean : data2) {
 					cnt++;;
 				%>
 				<tr>
@@ -88,13 +82,6 @@
 				%>
 			</table>
 			<%
-			//---キーワードを取得
-			String keyword = (String) request.getAttribute("keyword");
-			if (keyword == null) {
-				keyword = "";
-			}
-			%>
-			<%
 			//---zaisekiを取得
 			String zaiseki = (String) request.getAttribute("zaiseki");
 			if (zaiseki == null) {
@@ -102,10 +89,6 @@
 			}
 			%>
 
-			<div class="buttonarea">
-				<button type="submit" name="submit" value="insert">新規登録</button>
-				<button type="submit" name="submit" value="update">編集</button>
-			</div>
 		</form>
 	</main>
 </body>

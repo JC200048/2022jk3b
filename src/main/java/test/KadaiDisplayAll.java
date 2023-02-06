@@ -31,7 +31,7 @@ public class KadaiDisplayAll extends HttpServlet {
 			keyword = "";
 		}
 
-		// SampleDAOのgetAllDataメソッドを呼び出して全データを取り出し、listへ格納
+		// KadaiDAOのgetAllDataメソッドを呼び出して全データを取り出し、listへ格納
 		List<KadaiDataBean> list = new ArrayList<KadaiDataBean>();
 		KadaiDAO dao = new KadaiDAO();
 		list = dao.getAllData(keyword);

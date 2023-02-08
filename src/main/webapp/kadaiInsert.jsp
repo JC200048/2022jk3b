@@ -13,7 +13,7 @@
 		body {
 			height: 100%;
 			text-align: center;
-			background: #EAFDFC;
+			background: linear-gradient(to top, rgba(217, 175, 217, 0.7) 0%, rgba(151, 217, 225, 0.7) 100%),url(inu.png);
 			background-repeat: repeat;
 			position: fixed;
     		top: 0px;
